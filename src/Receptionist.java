@@ -6,13 +6,13 @@ public class Receptionist implements Runnable{
         {
             try {
 
-                Main.patient_ready.acquire();
+                Main.patient_ready_receptionist.acquire();
 
                 Main.queue_shield.acquire();
                     Patient_id = Main.Receptionist_line.remove().getThreadNum();
                 Main.queue_shield.release();
 
-                System.out.printf("\n Receptionist registers patient %d", Patient_id);
+                System.out.printf("\nReceptionist registers patient %d", Patient_id);
 
                 Main.Receptionist_Finished[Patient_id].release();
 

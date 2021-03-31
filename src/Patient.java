@@ -27,20 +27,48 @@ public class Patient implements Runnable{
     public void run() {
         System.out.printf("\nPatient %d enters waiting room, waits for receptionist",this.threadNum);
         try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
             Main.receptionist_register.acquire();
 
             Main.queue_shield.acquire();
 
 
-            Main.Receptionist_line.add(this);
-
+            Main.Receptionist_line.add(this); // add patient to Receptionist Line
             Main.queue_shield.release();
-
-            Main.patient_ready.release();
+            Main.patient_ready_receptionist.release();
 
             Main.Receptionist_Finished[this.threadNum].acquire();
 
             System.out.printf("\nPatient %d leaves receptionist and sits in waiting room", this.threadNum);
+            Thread.sleep(1000);
+            Main.nurse_ready.acquire();
+
+            Main.queue_shield.acquire(); // add patient to Nurse Line
+            Main.Nurse_line.add(this);
+            Main.queue_shield.release();
+            Main.patient_ready_Nurse.release();
+            Main.Nurse_Finished[this.threadNum].acquire();
+
+            Main.doctor_ready.acquire();
+
+            System.out.printf("\nPatient %d enters doctor %d's office",this.threadNum, this.DoctorNum);
+            Thread.sleep(1000);
+            Main.patient_ready_Doctor.release();
+
+            Main.Doctor_Finished[this.DoctorNum].acquire(); // wait for doctor to finish
+
+
+
+            System.out.printf("\nPatient %d leaves",this.threadNum);
+
+
+
+
+
 
         } catch (InterruptedException e) {
             e.printStackTrace();
