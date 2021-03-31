@@ -38,38 +38,37 @@ public class Main {
         int num_Doctors = 0;
         int num_patients = 0;
         int num_nurses = 0;
-        int num_Receptionist = 1;
 
-//        while (true) {
-//
-//            System.out.println("Enter the amount of Doctors");
-//            num_Doctors = myScanner.nextInt();
-//            if((num_Doctors > 0) && (num_Doctors <= 3) ) // if number of doctors is at max 3 end
-//            {
-//                break;
-//            }
-//            else
-//            {
-//                System.out.println("Enter an appropriate number of Doctors within range of 1-3");
-//            }
-//
-//        }
-//        while (true)
-//        {
-//            System.out.println("Enter the quantity of patience you want");
-//            num_patients = myScanner.nextInt();
-//            if((num_patients > 0) && (num_patients <= 30 ))
-//            {
-//                break;
-//            }
-//            else
-//            {
-//                System.out.println("Enter the appropriate number of Patients within range of 1-30");
-//            }
-//        }
 
-        num_Doctors = 3 ;
-        num_patients = 3 ;
+        while (true) {
+
+            System.out.println("Enter the amount of Doctors");
+            num_Doctors = myScanner.nextInt();
+            if((num_Doctors > 0) && (num_Doctors <= 3) ) // if number of doctors is at max 3 end
+            {
+                break;
+            }
+            else
+            {
+                System.out.println("Enter an appropriate number of Doctors within range of 1-3");
+            }
+
+        }
+        while (true)
+        {
+            System.out.println("Enter the quantity of patience you want");
+            num_patients = myScanner.nextInt();
+            if((num_patients > 0) && (num_patients <= 30 ))
+            {
+                break;
+            }
+            else
+            {
+                System.out.println("Enter the appropriate number of Patients within range of 1-30");
+            }
+        }
+
+        num_nurses = num_Doctors;
 
         System.out.printf("\nRun with %d patients, %d nurses, %d doctor",num_patients,num_nurses,num_Doctors);
         Receptionist_Finished = new Semaphore [num_patients];
@@ -77,7 +76,7 @@ public class Main {
         Nurse_Finished = new  Semaphore [num_patients];
 
         Doctor_Finished = new  Semaphore[num_patients];
-        num_nurses = num_Doctors;
+
 
         patientArrayList = new ArrayList<>(num_patients);
 
@@ -154,6 +153,6 @@ public class Main {
         }
 
 
-
+        System.exit(0);
     }
 }

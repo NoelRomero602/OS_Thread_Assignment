@@ -45,7 +45,7 @@ public class Doctor implements Runnable {
 
 
                       Main.map_shield.acquire();  // remove patient from Map
-                     Main.nurseTodoctorMap.remove(patient_obj);
+                     Main.nurseTodoctorMap.remove(this.threadNum);
                       Main.map_shield.release();
 
                       System.out.printf("\nPatient %d receives advice from doctor %d",patient_obj.getThreadNum(),this.threadNum);

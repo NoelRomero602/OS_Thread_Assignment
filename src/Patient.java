@@ -55,15 +55,20 @@ public class Patient implements Runnable{
 
             Main.doctor_ready.acquire();
 
+            Main.map_shield.acquire(); // put patient in map
+            Main.nurseTodoctorMap.put(this.DoctorNum, this);
+            Main.map_shield.release();
+
             System.out.printf("\nPatient %d enters doctor %d's office",this.threadNum, this.DoctorNum);
             Thread.sleep(1000);
             Main.patient_ready_Doctor.release();
 
-            Main.Doctor_Finished[this.DoctorNum].acquire(); // wait for doctor to finish
+            Main.Doctor_Finished[this.threadNum].acquire(); // wait for doctor to finish
 
 
 
             System.out.printf("\nPatient %d leaves",this.threadNum);
+
 
 
 

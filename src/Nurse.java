@@ -30,9 +30,7 @@ public class Nurse implements Runnable{
                 local_patient = Main.Nurse_line.remove();
                 Main.queue_shield.release();
 
-                Main.map_shield.acquire(); // put patient in map
-                Main.nurseTodoctorMap.put(this.threadNum, local_patient);
-                Main.map_shield.release();
+
 
 
                 local_patient.setDoctorNum(this.threadNum);
