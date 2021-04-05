@@ -41,6 +41,11 @@ public class Nurse implements Runnable{
                 e.printStackTrace();
             }
 
+//            try {
+//                Main.Nurse_ready_Doctor[threadNum].acquire();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             System.out.printf("\nNurse %d takes patient %d to the doctors office ",this.threadNum,local_patient.getThreadNum());
 
             try {

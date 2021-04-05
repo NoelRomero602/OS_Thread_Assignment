@@ -31,7 +31,7 @@ public class Doctor implements Runnable {
 
               try {
                   Main.map_shield.acquire();
-                  patient_obj = Main.nurseTodoctorMap.get(this.threadNum);
+                  patient_obj = Main.Doctor_line.remove();
                   Main.map_shield.release();
 
 
@@ -44,14 +44,16 @@ public class Doctor implements Runnable {
                        System.out.printf("\nDoctor %d listens to Symptoms from patient %d",this.threadNum,patient_obj.getThreadNum());
 
 
-                      Main.map_shield.acquire();  // remove patient from Map
-                     Main.nurseTodoctorMap.remove(this.threadNum);
-                      Main.map_shield.release();
+//                      Main.map_shield.acquire();  // remove patient from Map
+//                     Main.nurseTodoctorMap.remove(this.threadNum);
+//                      Main.map_shield.release();
 
-                      System.out.printf("\nPatient %d receives advice from doctor %d",patient_obj.getThreadNum(),this.threadNum);
 
                       Main.Doctor_Finished[patient_obj.getThreadNum()].release();
-                      Main.doctor_ready.release();
+                      Main.doctor_ready.release(); // let new patients enter
+
+                      Main.Doctor_ready_nurse[this.threadNum].release(); // let new patients enter the correct thread
+                     // Main.Nurse_ready_Doctor[this.threadNum].release();
                   }
 
               }

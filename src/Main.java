@@ -15,6 +15,10 @@ public class Main {
 
     public static Semaphore patient_ready_Doctor = new Semaphore(0,true);
 
+    public static Semaphore[] Doctor_ready_nurse ;
+
+    public static Semaphore[] Nurse_ready_Doctor;
+
     public static Semaphore[] Receptionist_Finished;
 
     public static Semaphore[] Nurse_Finished;
@@ -30,6 +34,8 @@ public class Main {
     public static Queue<Patient> Receptionist_line = new LinkedList<>();
 
     public static Queue<Patient> Nurse_line = new LinkedList<>();
+
+    public static Queue<Patient> Doctor_line = new LinkedList<>();
 
     public static Map<Integer, Patient > nurseTodoctorMap = new HashMap<>();
 
@@ -77,8 +83,11 @@ public class Main {
 
         Doctor_Finished = new  Semaphore[num_patients];
 
+        Doctor_ready_nurse = new Semaphore[num_Doctors];
 
         patientArrayList = new ArrayList<>(num_patients);
+
+        Nurse_ready_Doctor = new Semaphore[num_Doctors];
 
 
         Receptionist receptionist_local = new Receptionist();
@@ -118,6 +127,8 @@ public class Main {
               Nurse_obj = new Nurse(i);
               Nurse_th = new Thread(Nurse_obj);
 
+              Doctor_ready_nurse[i] = new Semaphore(1,true);
+             // Nurse_ready_Doctor[i] = new Semaphore(1, true);
               Doctor_obj = new Doctor(i);
               Doctor_th = new Thread(Doctor_obj);
 
@@ -131,28 +142,11 @@ public class Main {
          receptionist_Th.start(); // start Receptionist thread
 
 
-        try {
-            receptionist_Th.join();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        for( Patient obj: patientArrayList)
-        {
-            patient_th = new Thread(obj);
-
-            try {
-                patient_th.join();
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
 
 
-        System.exit(0);
+
+
+
+    //    System.exit(0);
     }
 }
