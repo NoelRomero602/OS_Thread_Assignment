@@ -35,8 +35,6 @@ public class Main {
 
     public static Queue<Patient> Nurse_line = new LinkedList<>();
 
-    public static Queue<Patient> Doctor_line = new LinkedList<>();
-
     public static Map<Integer, Patient > nurseTodoctorMap = new HashMap<>();
 
     public static void main(String[] args) {
@@ -147,6 +145,6 @@ public class Main {
 
 
 
-    //    System.exit(0);
+      // System.exit(0);
     }
 }

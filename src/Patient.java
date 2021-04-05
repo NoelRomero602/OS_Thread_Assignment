@@ -59,7 +59,7 @@ public class Patient implements Runnable{
             Main.Doctor_ready_nurse[this.DoctorNum].acquire();
 
             Main.map_shield.acquire(); // put patient in map
-            Main.Doctor_line.add(this);
+            Main.nurseTodoctorMap.put(this.DoctorNum,this);
             Main.map_shield.release();
 
             System.out.printf("\nPatient %d enters doctor %d's office",this.threadNum, this.DoctorNum);
