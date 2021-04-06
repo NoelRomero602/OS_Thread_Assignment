@@ -37,7 +37,7 @@ public class Doctor implements Runnable {
 
                   if(patient_obj == null)
                   {
-                      Main.patient_ready_Doctor.release();
+                     Main.patient_ready_Doctor.release();
                       // do nothing
                   }
                   else

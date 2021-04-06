@@ -37,6 +37,12 @@ public class Main {
 
     public static Map<Integer, Patient > nurseTodoctorMap = new HashMap<>();
 
+    public static LinkedList<Thread> patiient_Th_list = new LinkedList<>();
+
+    public static LinkedList<Thread> doctor_Th_list = new LinkedList<>();
+
+    public static LinkedList<Thread> nurse_Th_list = new LinkedList<>();
+
     public static void main(String[] args) {
         Scanner myScanner = new Scanner(System.in);
         int num_Doctors = 0;
@@ -115,7 +121,7 @@ public class Main {
                Patient_obj = new Patient(i);
                patient_th = new Thread(Patient_obj);
                patient_th.start();  // start the Patient threads
-
+                patiient_Th_list.add(patient_th);
                patientArrayList.add(Patient_obj); // add patient objects to arraylsit
 
            }
@@ -131,13 +137,26 @@ public class Main {
               Doctor_th = new Thread(Doctor_obj);
 
               Doctor_th.start();
+              doctor_Th_list.add(Doctor_th);
 
               Nurse_th.start();
+              nurse_Th_list.add(Nurse_th);
           }
 
+        receptionist_Th.start(); // start Receptionist thread
+
+         for(Thread patient_obj_th : patiient_Th_list)
+         {
+             try {
+                 patient_obj_th.join();
+             }
+             catch (Exception e)
+             {
+                 e.printStackTrace();
+             }
+         }
 
 
-         receptionist_Th.start(); // start Receptionist thread
 
 
 
@@ -145,6 +164,7 @@ public class Main {
 
 
 
-      // System.exit(0);
+
+     System.exit(0);
     }
 }
