@@ -37,6 +37,7 @@ public class Doctor implements Runnable {
 
                   if(patient_obj == null)
                   {
+                      // let new patients be ready since this doctor thread had no patientj
                      Main.patient_ready_Doctor.release();
                       // do nothing
                   }

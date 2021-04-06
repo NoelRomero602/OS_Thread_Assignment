@@ -132,7 +132,7 @@ public class Main {
               Nurse_th = new Thread(Nurse_obj);
 
               Doctor_ready_nurse[i] = new Semaphore(1,true);
-             // Nurse_ready_Doctor[i] = new Semaphore(1, true);
+
               Doctor_obj = new Doctor(i);
               Doctor_th = new Thread(Doctor_obj);
 
@@ -145,6 +145,7 @@ public class Main {
 
         receptionist_Th.start(); // start Receptionist thread
 
+        // join all the patient threads
          for(Thread patient_obj_th : patiient_Th_list)
          {
              try {
@@ -159,11 +160,7 @@ public class Main {
 
 
 
-
-
-
-
-
+         // end all threads
 
      System.exit(0);
     }
