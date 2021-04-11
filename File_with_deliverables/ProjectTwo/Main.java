@@ -2,22 +2,29 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 public class Main {
-
+//  Determines if  the receptionist is available or occupied registering a patient
+//Initially set to 1
     public static Semaphore receptionist_register;
-
+//This semaphore indicates the amount of nurses that are available to walk the patients to their respective doctor offices
+//Initial value = number of doctors
     public static Semaphore nurse_ready;
-
+// Determinds the availability of doctor threads being available to service patients
+//Initial value = number of doctors
     public static Semaphore doctor_ready ;
-
+//This semaphore is used to signal from the patient to the receptionist
+// that the patient thread obj is not avaible in the que line for the receptionist to access it.
     public static Semaphore patient_ready_receptionist = new Semaphore(0,true);
 
+    // This Semaphore patient_ready_Nurse
     public static Semaphore patient_ready_Nurse = new Semaphore(0, true);
+
 
     public static Semaphore patient_ready_Doctor = new Semaphore(0,true);
 
+
     public static Semaphore[] Doctor_ready_nurse ;
 
-    public static Semaphore[] Nurse_ready_Doctor;
+
 
     public static Semaphore[] Receptionist_Finished;
 
@@ -49,7 +56,7 @@ public class Main {
         int num_patients = 0;
         int num_nurses = 0;
 
-
+// read in user inputs for quantity of doctors and patients
         while (true) {
 
             System.out.println("Enter the amount of Doctors");
@@ -78,10 +85,12 @@ public class Main {
             }
         }
 
+        // doctos and nurse are in the same quantity
         num_nurses = num_Doctors;
-
+        // output the status of the room
         System.out.printf("\nRun with %d patients, %d nurses, %d doctor",num_patients,num_nurses,num_Doctors);
         Receptionist_Finished = new Semaphore [num_patients];
+
 
         Nurse_Finished = new  Semaphore [num_patients];
 
@@ -90,8 +99,6 @@ public class Main {
         Doctor_ready_nurse = new Semaphore[num_Doctors];
 
         patientArrayList = new ArrayList<>(num_patients);
-
-        Nurse_ready_Doctor = new Semaphore[num_Doctors];
 
 
         Receptionist receptionist_local = new Receptionist();
@@ -112,6 +119,7 @@ public class Main {
         Doctor Doctor_obj;
         Thread Doctor_th;
 
+        // start all patient threads and store them in a array list
          for(int i = 0; i < num_patients; i++)
            {
                Receptionist_Finished[i] = new Semaphore(0, true);
@@ -126,6 +134,7 @@ public class Main {
 
            }
 
+         // start all doctor threads  and nurse threads
          for (int i = 0; i < num_Doctors; i++)
           {
               Nurse_obj = new Nurse(i);

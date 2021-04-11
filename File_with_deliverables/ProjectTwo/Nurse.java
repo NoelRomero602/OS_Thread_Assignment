@@ -18,6 +18,7 @@ public class Nurse implements Runnable{
         while (true)
         {
             try {
+                // wait for patient_ready_Nurse
                 Main.patient_ready_Nurse.acquire();
             }
             catch (Exception e)
@@ -32,6 +33,7 @@ public class Nurse implements Runnable{
 
 
 
+                // set the doctor number for the patient
 
                 local_patient.setDoctorNum(this.threadNum);
 
@@ -41,11 +43,7 @@ public class Nurse implements Runnable{
                 e.printStackTrace();
             }
 
-//            try {
-//                Main.Nurse_ready_Doctor[threadNum].acquire();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+
             System.out.printf("\nNurse %d takes patient %d to the doctors office ",this.threadNum,local_patient.getThreadNum());
 
             try {

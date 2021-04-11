@@ -8,6 +8,7 @@ public class Receptionist implements Runnable{
 
                 Main.patient_ready_receptionist.acquire();
 
+                // mutual exclusion for the Receptionist_line queue
                 Main.queue_shield.acquire();
                     Patient_id = Main.Receptionist_line.remove().getThreadNum();
                 Main.queue_shield.release();
